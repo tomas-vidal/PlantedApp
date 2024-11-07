@@ -1,0 +1,42 @@
+.buttonSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 22px;
+}
+
+.buttonSection > button {
+  width: 205px;
+  height: 51px;
+  border-radius: 400px;
+  border: none;
+  font-size: 1.125rem;
+  color: #4d4b4b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.buttonSection > button:disabled {
+  cursor: not-allowed;
+  background-color: #d9d9d9;
+}
+
+.buttonSection > button:enabled {
+  cursor: pointer;
+  background-color: #a0eeff;
+  color: #ffffff;
+}
+
+.buttonSection__button--enable {
+  background-color: #a0eeff;
+}
+
+.buttonSection__text {
+  color: #324232;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}

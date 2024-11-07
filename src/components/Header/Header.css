@@ -1,0 +1,49 @@
+.headerApp {
+  height: 78px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(49, 160, 95, 1) 0%,
+    rgba(92, 190, 133, 1) 150%
+  );
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.headerApp__plantName {
+  color: #fff;
+  font-size: 1.565rem;
+}
+
+.headerApp > svg {
+  margin: 20px;
+  cursor: pointer;
+}
+
+.headerStreak {
+  text-align: center;
+  margin-top: 17px;
+}
+
+.headerStreak__section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerStreak__number {
+  font-size: 2.188rem;
+  color: #3a3a3a;
+}
+
+.headerStreak__text {
+  font-size: 0.82rem;
+  color: #d9d9d9;
+  margin-top: -3px;
+}

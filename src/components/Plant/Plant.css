@@ -1,0 +1,11 @@
+.plantSection {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.plantSection > svg {
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: 59.69px;
+}
