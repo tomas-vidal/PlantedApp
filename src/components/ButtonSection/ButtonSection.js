@@ -16,23 +16,23 @@ function ButtonSection() {
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
-    if (!isLoading && plant != null) {
-      setDateTimer(timestampToDate(plant.LastWater));
+      if (!isLoading && plant != null) {
+        setDateTimer(timestampToDate(plant.LastWater));
+        const dateTodayInMs = new Date().getTime();
+      const dateFetchedInMs = dateTimer.getTime();
+
+      if (dateTodayInMs - dateFetchedInMs > 86400000) {
+        setTimer(false);
+        setButtonDisabled(false);
+      } else {
+        setTimer(true);
+        setButtonDisabled(true);
+      }
     }
   }, [plant, isLoading]);
 
   useEffect(() => {
-    const dateTodayInMs = new Date().getTime();
-    const dateFetchedInMs = dateTimer.getTime();
     if (plant != null) countdownRef.current.api.start();
-
-    if (dateTodayInMs - dateFetchedInMs > 8640) {
-      setTimer(false);
-      setButtonDisabled(false);
-    } else {
-      setTimer(true);
-      setButtonDisabled(true);
-    }
   }, [dateTimer]);
 
   const handleWatering = (e) => {
@@ -81,8 +81,7 @@ function ButtonSection() {
           ref={countdownRef}
           daysInHours={true}
           autoStart={false}
-          //date={dateTimer.getTime() + 86400000}
-          date={dateTimer.getTime() + 8640}
+          date={dateTimer.getTime() + 86400000}
           renderer={renderer}
           onComplete={() => {
             setTimer(false);

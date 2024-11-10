@@ -3,20 +3,30 @@ import Header from "../components/Header/Header";
 import ButtonSection from "../components/ButtonSection/ButtonSection";
 import Plant from "../components/Plant/Plant";
 import { Context } from "../context/UserContext";
-import { Context as FirebaseContext } from "../context/FirebaseContext";
+import { db } from "../Firebase";
+import { onSnapshot,
+  query,
+  collection,
+  where,
+  limit,
+  } from "firebase/firestore";
 
 function Main() {
-  const { user, setPlant } = useContext(Context);
-  const { getPlant } = useContext(FirebaseContext);
+  const { user, setPlant, plant } = useContext(Context);
 
   useEffect(() => {
     if (user) {
-      getPlant(user.uid).then((data) => {
-        setPlant(data);
+      const q = query(collection(db, "plants"), where("UserId", "==", user.uid), limit(1));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (plant == null) {
+            setPlant(doc.data());
+          }
+        });
       });
     }
-  }, [user, getPlant, setPlant]);
-
+  }, [user, plant]);
+  
   return (
     <div className="plantSec">
       <Header />

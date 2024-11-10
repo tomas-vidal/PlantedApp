@@ -19,9 +19,6 @@ function UserContext({ children }) {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUser(user);
-        getPlant(user.uid).then((plant) => {
-          setPlant(plant);
-        });
         navigate("/plant");
       } else {
         setUser(null);
@@ -31,8 +28,6 @@ function UserContext({ children }) {
       setIsLoading(false);
     });
   }, [user, navigate, getPlant]);
-
-  console.log(plant);
 
   return (
     <Context.Provider value={{ user, setPlant, plant, isLoading }}>
