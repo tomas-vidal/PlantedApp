@@ -1,8 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore/lite";
+import { getFirestore } from "firebase/firestore";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA4Q8icx0sRQKNUL9O3o_tUIUVIJ9b0zkY",
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: "plantedapp-3c30c.firebaseapp.com",
   databaseURL: "https://plantedapp-3c30c-default-rtdb.firebaseio.com",
   projectId: "plantedapp-3c30c",

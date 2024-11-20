@@ -2,7 +2,7 @@ import React from "react";
 import "./LoginForm.css";
 import LogoIcon from "./LogoIcon";
 import { useContext } from "react";
-import { Context } from "../../context/FirebaseContext";
+import { Context } from "../../context/UserContext";
 
 function LoginForm() {
   const { authWithGoogle } = useContext(Context);
@@ -17,12 +17,11 @@ function LoginForm() {
           App
         </h1>
         <button className="loginForm__buttons--signup" onClick={authWithGoogle}>
-          Sign up <span>with google</span>
+          Login <span>with google</span>
         </button>
-        <button className="loginForm__buttons--login">Login</button>
       </div>
       <footer>
-        <button>Terms of service</button>
+        <button>Source code</button>
       </footer>
     </form>
   );

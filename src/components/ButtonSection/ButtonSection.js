@@ -1,51 +1,54 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { Context } from "../../context/UserContext";
-import { Context as FirebaseContext } from "../../context/FirebaseContext";
 import WaterIcon from "./WaterIcon";
 import "./ButtonSection.css";
 import Countdown, { zeroPad } from "react-countdown";
 import { timestampToDate } from "../../helpers/Helpers";
 
 function ButtonSection() {
-  const { user, plant, isLoading, plant1 } = useContext(Context);
-  const { createPlant, waterPlant } = useContext(FirebaseContext);
+  const {
+    user,
+    plant,
+    isLoading,
+    createPlant,
+    waterPlant,
+    dateTimer,
+    setDateTimer,
+  } = useContext(Context);
   const countdownRef = useRef(null);
 
-  const [timer, setTimer] = useState(true);
-  const [dateTimer, setDateTimer] = useState(new Date());
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [timer, setTimer] = useState(false);
 
   useEffect(() => {
-    if (!isLoading && plant != null) {
+    if (plant != null) {
       setDateTimer(timestampToDate(plant.LastWater));
     }
-  }, [plant, isLoading]);
+  }, [plant]);
 
   useEffect(() => {
     const dateTodayInMs = new Date().getTime();
     const dateFetchedInMs = dateTimer.getTime();
-    if (plant != null) countdownRef.current.api.start();
 
-    if (dateTodayInMs - dateFetchedInMs > 8640) {
+    if (dateTodayInMs - dateFetchedInMs > 8640000) {
       setTimer(false);
-      setButtonDisabled(false);
     } else {
       setTimer(true);
-      setButtonDisabled(true);
+    }
+
+    if (countdownRef.current != null) {
+      countdownRef.current.api.start();
     }
   }, [dateTimer]);
 
   const handleWatering = (e) => {
     e.preventDefault();
+    waterPlant(user.uid).then(() => {
+      setDateTimer(new Date());
+    });
+  };
 
-    if (plant == null) {
-      createPlant(user.uid);
-    } else {
-      waterPlant(user.uid);
-    }
-
-    setButtonDisabled(true);
-    setDateTimer(new Date());
+  const createPlantButton = async (userId) => {
+    createPlant(userId);
   };
 
   const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -60,7 +63,20 @@ function ButtonSection() {
     }
   };
 
-  if (plant == null) return "";
+  if (isLoading) return "";
+
+  if (plant == null && user)
+    return (
+      <section className="buttonSection">
+        <button
+          className="buttonSection__button--enable"
+          onClick={() => createPlantButton(user.uid)}
+        >
+          Create plant
+          <WaterIcon disabled={false} />
+        </button>
+      </section>
+    );
 
   return (
     <section className="buttonSection">
@@ -71,22 +87,20 @@ function ButtonSection() {
             : "buttonSection__button--enable"
         }
         onClick={handleWatering}
-        disabled={buttonDisabled}
+        disabled={timer}
       >
         Watering Plant
-        <WaterIcon disabled={buttonDisabled} />
+        <WaterIcon disabled={timer} />
       </button>
       <span className="buttonSection__text">
         <Countdown
           ref={countdownRef}
           daysInHours={true}
           autoStart={false}
-          //date={dateTimer.getTime() + 86400000}
           date={dateTimer.getTime() + 8640}
           renderer={renderer}
           onComplete={() => {
             setTimer(false);
-            setButtonDisabled(false);
           }}
         />
       </span>
