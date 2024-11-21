@@ -149,6 +149,8 @@ function UserContext({ children }) {
         setUser(user);
         getPlant(user.uid);
         navigate("/plant");
+      } else {
+        navigate("/login");
       }
     });
   }, [user, navigate, auth]);

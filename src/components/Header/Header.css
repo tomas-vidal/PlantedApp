@@ -67,10 +67,17 @@ form {
 
 .modalForm__input {
   flex: 1;
-  border: 1px solid #31a05f;
   border-radius: 2px;
   padding: 0px 5px;
   height: 40px;
+}
+
+.modalForm__input--correct {
+  border: 1px solid #31a05f;
+}
+
+.modalForm__input--error {
+  border: 1px solid #b60707;
 }
 
 .modalForm__input:focus {
@@ -101,5 +108,12 @@ form {
 .modalForm__text {
   margin-top: 3px;
   font-size: 0.7rem;
+}
+
+.modalForm__text--error {
+  color: #b60707;
+}
+
+.modalForm__text--correct {
   color: #a1a1a1;
 }
