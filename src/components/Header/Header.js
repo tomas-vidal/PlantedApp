@@ -90,7 +90,7 @@ function Header() {
           <>
             <div className="headerStreak__section">
               <h2 className="headerStreak__number">{plant.Streak}</h2>
-              <FlameIcon />
+              <FlameIcon streak={plant.Streak} />
             </div>
             <p className="headerStreak__text">day streak</p>
           </>

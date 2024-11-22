@@ -29,7 +29,7 @@ function ButtonSection() {
     const dateTodayInMs = new Date().getTime();
     const dateFetchedInMs = dateTimer.getTime();
 
-    if (dateTodayInMs - dateFetchedInMs > 8640000) {
+    if (dateTodayInMs - dateFetchedInMs > 864000000) {
       setTimer(false);
     } else {
       setTimer(true);
@@ -97,7 +97,7 @@ function ButtonSection() {
           ref={countdownRef}
           daysInHours={true}
           autoStart={false}
-          date={dateTimer.getTime() + 8640}
+          date={dateTimer.getTime() + 864000000}
           renderer={renderer}
           onComplete={() => {
             setTimer(false);
@@ -109,16 +109,3 @@ function ButtonSection() {
 }
 
 export default ButtonSection;
-
-// useEffect(() => {
-//   const dateToday = new Date();
-//   const msInADay = 1000 * 3600 * 24;
-//   countdownRef.current.api.start();
-//   if (
-//     (dateToday.getTime() / 1000 - dateTimer.getTime() / 1000) / 60 >=
-//     0.16
-//   ) {
-//     setTimer(false);
-//     setButtonDisabled(false);
-//   }
-// }, [dateTimer]);
