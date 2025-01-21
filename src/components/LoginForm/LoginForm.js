@@ -21,7 +21,13 @@ function LoginForm() {
         </button>
       </div>
       <footer>
-        <button>Source code</button>
+        <a
+          target="_blank"
+          href="https://github.com/tomas-vidal/PlantedApp"
+          rel="noreferrer"
+        >
+          Source code
+        </a>
       </footer>
     </form>
   );

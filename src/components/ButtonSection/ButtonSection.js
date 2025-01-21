@@ -28,8 +28,16 @@ function ButtonSection() {
   useEffect(() => {
     const dateTodayInMs = new Date().getTime();
     const dateFetchedInMs = dateTimer.getTime();
+    let createdAt;
 
-    if (dateTodayInMs - dateFetchedInMs > 864000000) {
+    if (plant != null) {
+      createdAt = timestampToDate(plant.CreatedAt).getTime();
+    }
+
+    if (
+      dateTodayInMs - dateFetchedInMs > 864000000 ||
+      createdAt === dateFetchedInMs
+    ) {
       setTimer(false);
     } else {
       setTimer(true);
@@ -97,7 +105,13 @@ function ButtonSection() {
           ref={countdownRef}
           daysInHours={true}
           autoStart={false}
-          date={dateTimer.getTime() + 864000000}
+          date={
+            new Date().getTime() - timestampToDate(plant.CreatedAt).getTime() <
+              864000000 &&
+            timestampToDate(plant.CreatedAt).getTime() === dateTimer.getTime()
+              ? dateTimer.getTime()
+              : dateTimer.getTime() + 864000000
+          }
           renderer={renderer}
           onComplete={() => {
             setTimer(false);

@@ -14,7 +14,6 @@ import {
   limit,
   doc,
 } from "firebase/firestore";
-import { timestampToDate } from "../helpers/Helpers";
 
 const auth = getAuth();
 
@@ -45,7 +44,7 @@ function UserContext({ children }) {
     const q = query(plantsRef, where("UserId", "==", userId), limit(1));
 
     return new Promise((resolve, reject) => {
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      onSnapshot(q, (querySnapshot) => {
         let plantData = null;
 
         querySnapshot.forEach((doc) => {
@@ -60,8 +59,8 @@ function UserContext({ children }) {
           setPlant(null);
         }
 
-        setIsLoading(false);
         resolve();
+        setIsLoading(false);
       });
 
       setTimeout(() => {
