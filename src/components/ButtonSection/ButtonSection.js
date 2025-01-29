@@ -35,7 +35,7 @@ function ButtonSection() {
     }
 
     if (
-      dateTodayInMs - dateFetchedInMs > 864000000 ||
+      dateTodayInMs - dateFetchedInMs > 86400000 ||
       createdAt === dateFetchedInMs
     ) {
       setTimer(false);
@@ -107,10 +107,10 @@ function ButtonSection() {
           autoStart={false}
           date={
             new Date().getTime() - timestampToDate(plant.CreatedAt).getTime() <
-              864000000 &&
+              86400000 &&
             timestampToDate(plant.CreatedAt).getTime() === dateTimer.getTime()
               ? dateTimer.getTime()
-              : dateTimer.getTime() + 864000000
+              : dateTimer.getTime() + 86400000
           }
           renderer={renderer}
           onComplete={() => {
